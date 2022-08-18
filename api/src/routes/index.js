@@ -1,7 +1,8 @@
 const { Router } = require('express');
 const router = Router();
-const { Dogs, Temperaments } = require('../db')
+const { Dogs, Temperaments, Users } = require('../db')
 const axios = require('axios');
+const bcrypt = require('bcrypt');
 
 const getDb = async () => {
   const dbData = await Dogs.findAll()
@@ -45,18 +46,31 @@ router.get('/dogs', async (req, res) => {
 })
 
 router.get('/temperaments', async (req, res) => {
-  const getTemperament = await axios('https://api.thedogapi.com/v1/breeds')
-  const allTemperaments = getTemperament.data.map(t => t.temperament ? t.temperament : "No temper").toString().split(",")
-  const mapTemperaments = allTemperaments.map(t => t.trim())
-  mapTemperaments.forEach(t => {
-    Temperaments.findOrCreate({
-      where: {
-        name: t
-      }
+  try {
+    const getTemperament = await axios('https://api.thedogapi.com/v1/breeds')
+    const allTemperaments = getTemperament.data.map(t => t.temperament ? t.temperament : "No temper").toString().split(",")
+    const mapTemperaments = allTemperaments.map(t => t.trim())
+    mapTemperaments.forEach(t => {
+      Temperaments.findOrCreate({
+        where: {
+          name: t
+        }
+      })
     })
-  })
-  const result = await Temperaments.findAll({ attributes: ["id", "name"] });
-  res.send(result)
+    const result = await Temperaments.findAll({ attributes: ["id", "name"] });
+    res.send(result)
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+router.get('/users', async (req, res) => {
+  try {
+    const users = await Users.findAll()
+    users.length ? res.send(users) : res.status(404).send("There are no registered users")
+  } catch (error) {
+    console.log(error)
+  }
 })
 
 router.get('/dogs/:id', async (req, res) => {
@@ -66,7 +80,8 @@ router.get('/dogs/:id', async (req, res) => {
       const dogId = await Dogs.findOne({
         where: {
           id: id
-        }
+        },
+        include: Temperaments
       })
       console.log("dogId: ", dogId)
       dogId ? res.status(200).send(dogId) : res.status(404).send("Not result")
@@ -76,22 +91,19 @@ router.get('/dogs/:id', async (req, res) => {
   }
 })
 
-router.post('/dogs', async (req, res) => {
+router.post('/dogs', async (req, res) => { // revisar esta ruta
   try {
     console.log("le llega: ", req.body)
-    const { name, weight, bred_for, breed_group, life_span, origin, image, temperament } = req.body
-    const id = 222244
+    const { id, name, weight, bred_for, breed_group, life_span, origin, image, temperament } = req.body
     let createDog = await Dogs.create({
-      where: {
-        id: id,
-        name,
-        weight,
-        bred_for,
-        breed_group,
-        life_span,
-        origin,
-        image
-      }
+      id,
+      name,
+      weight,
+      bred_for,
+      breed_group,
+      life_span,
+      origin,
+      image
     })
     const temperamentsDb = await Temperaments.findAll({ where: { name: temperament } })
     console.log("temperamentsDb: ", temperamentsDb)
@@ -101,6 +113,47 @@ router.post('/dogs', async (req, res) => {
     console.log(error)
   }
 })
+
+router.post('/register', async (req, res) => {
+  try {
+    const { fullname, email, password, photo } = req.body
+    const findEmail = await Users.findOne({ where: { email: email } })
+    if (!findEmail) {
+      const encryptedPassword = await bcrypt.hash(password, 10);
+      const user = await Users.create({
+        fullname,
+        email: email.toLowerCase(),
+        password: encryptedPassword,
+        photo
+      })
+      res.send({
+        "message": "Account created successfully!",
+        "user": user
+      })
+    } else {
+      return res.status(404).send('The email is already registered')
+    }
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+router.post('/login', async (req, res) => {
+  try {
+    const { email, password } = req.body
+    const findUser = await Users.findOne({ where: { email: email } })
+    if (findUser && (await bcrypt.compare(password, findUser.password))) {
+      res.status(201).json({
+        "user": findUser
+      })
+    } else {
+      return res.status(404).send('User incorrect')
+    }
+  } catch (error) {
+    console.log(error)
+  }
+})
+
 
 module.exports = router;
 
