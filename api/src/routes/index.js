@@ -3,6 +3,8 @@ const router = Router();
 const { Dogs, Temperaments, Users } = require('../db')
 const axios = require('axios');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
 
 const getDb = async () => {
   const dbData = await Dogs.findAll()
@@ -126,9 +128,11 @@ router.post('/register', async (req, res) => {
         password: encryptedPassword,
         photo
       })
+      const token = jwt.sign({ user_id: user.id, email }, "secret", { expiresIn: "10h" });
+      user.token = token;
       res.send({
         "message": "Account created successfully!",
-        "user": user
+        "token": token
       })
     } else {
       return res.status(404).send('The email is already registered')
@@ -143,8 +147,11 @@ router.post('/login', async (req, res) => {
     const { email, password } = req.body
     const findUser = await Users.findOne({ where: { email: email } })
     if (findUser && (await bcrypt.compare(password, findUser.password))) {
+      const token = jwt.sign({ user_id: findUser.id, email }, "secret", { expiresIn: "10h" });
+      findUser.token = token;
       res.status(201).json({
-        "user": findUser
+        "user": findUser,
+        "token": token
       })
     } else {
       return res.status(404).send('User incorrect')
