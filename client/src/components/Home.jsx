@@ -6,6 +6,7 @@ import Paginated from './Paginated';
 import github from '../images/github.png'
 import linkedin from '../images/linkedin.png'
 import Filters from './Filters';
+import dogHome from '../images/dogHome.jpg'
 
 const Home = () => {
   const [order, setOrder] = useState('')
@@ -23,7 +24,7 @@ const Home = () => {
     dispatch(showDogs())
   }, [dispatch])
   return (
-    <div>
+    <div className='bg-cyan-400'>
       <div className='bg-blue-400 flex flex-row justify-between items-center'>
         <div className='flex flex-row'>
           <a href="https://github.com/LucianoScaglione" target="_blank"><img className='h-12 m-1' src={github} alt='' /></a>
@@ -33,7 +34,10 @@ const Home = () => {
           <h3 className='mr-6 text-3xl'>Create Dog</h3>
         </Link>
       </div>
-      <Filters setActualPage={setActualPage} setOrder={setOrder} />
+      <div className='inline-flex'>
+        <h3 className='mt-5 ml-4'>Filter by:</h3>
+        <Filters setActualPage={setActualPage} setOrder={setOrder} />
+      </div>
       <Paginated
         dogs={dogs.length}
         dogsPerPage={dogsPerPage}
@@ -42,13 +46,17 @@ const Home = () => {
       <div className='bg-red-400 p-35'></div>
       {showDogsFrom && showDogsFrom.map(d => {
         return (
-          <div className='inline-block max-w-[300px] mx-4 my-10 bg-zinc-300 items-center justify-center'>
+          <div className='inline-block max-w-[300px] mx-4 my-10 bg-cyan-200 items-center justify-center rounded-lg hover:scale-105'>
             <div key={d.id}>
               <Link to={`/detail/${d.id}`}>
-                <h1 className='m-6'>{d.name}</h1>
-                <img className='h-[100%] w-px[100%]' src={d.image} />
-                <p>{d.breed_group ? d.breed_group : "unknown breed"}</p>
-                <p>{d.origin ? d.origin : "unknown origin"}</p>
+                <h1 className='m-6 font-black text-black' style={{
+                  whiteSpace: "nowrap",
+                  textOverflow: "ellipsis",
+                  overflow: "hidden"
+                }}>{d.name}</h1>
+                <img className='h-60 w-80' src={d.image} />
+                <p className='m-2 text-black font-medium'>{d.breed_group ? d.breed_group : "Unknown breed"}</p>
+                <p className='m-2 text-black font-medium'>{d.origin ? d.origin : "Unknown origin"}</p>
               </Link>
             </div>
           </div>

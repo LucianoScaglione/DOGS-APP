@@ -26,9 +26,9 @@ const Filters = ({ setActualPage, setOrder }) => {
   }, [dispatch])
 
   return (
-    <div>
-      <p>Temperaments:</p>
-      <select onChange={handleChangeTemperaments}>
+    <div className='inline-flex m-5'>
+      <p className='mx-2'>Temperaments:</p>
+      <select className='mr-[30px]' onChange={handleChangeTemperaments}>
         <option value='all'>All</option>
         {
           temperaments.length && temperaments.map(t => {
@@ -38,7 +38,7 @@ const Filters = ({ setActualPage, setOrder }) => {
           })
         }
       </select>
-      <p>Order: </p>
+      <p className='mx-2'>Order: </p>
       <select onChange={handleChangeOrder}>
         <option hidden>Default</option>
         <option value='az'>A-Z</option>
