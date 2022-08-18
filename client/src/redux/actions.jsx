@@ -1,0 +1,55 @@
+import axios from 'axios';
+
+export const SHOW_DOGS = "SHOW_DOGS"
+export const DETAIL_DOG = "DETAIL_DOG"
+export const ALL_TEMPERAMENTS = "ALL_TEMPERAMENTS"
+export const FILTER_TEMPERAMENTS = "FILTER_TEMPERAMENTS"
+export const FILTER_ORDER = "FILTER_ORDER"
+
+export const showDogs = () => {
+  return (dispatch) => {
+    return axios.get('http://localhost:3001/dogs')
+      .then(res => dispatch({ type: SHOW_DOGS, payload: res.data }))
+      .catch(err => console.log(err))
+  }
+}
+
+export const detailDogs = (id) => {
+  return (dispatch) => {
+    return axios.get(`http://localhost:3001/dogs/${id}`)
+      .then(res => dispatch({ type: DETAIL_DOG, payload: res.data }))
+      .catch(err => console.log(err))
+  }
+}
+
+export const allTemperaments = () => {
+  return (dispatch) => {
+    return axios('http://localhost:3001/temperaments')
+      .then(res => dispatch({ type: ALL_TEMPERAMENTS, payload: res.data }))
+      .catch(err => console.log(err))
+  };
+}
+
+export const createDog = (payload) => {
+  console.log(payload)
+  return async () => {
+    const creation = await axios.post('http://localhost:3001/dogs', payload);
+    return creation;
+  };
+}
+
+export const filterByTemperaments = (payload) => {
+  return {
+    type: FILTER_TEMPERAMENTS,
+    payload
+  }
+}
+
+export const filterByOrder = (payload) => {
+  return {
+    type: FILTER_ORDER,
+    payload
+  }
+}
+
+
