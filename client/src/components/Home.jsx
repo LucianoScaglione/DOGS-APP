@@ -8,6 +8,7 @@ import linkedin from '../images/linkedin.png'
 import Filters from './Filters';
 
 const Home = () => {
+  const [order, setOrder] = useState('')
   const dispatch = useDispatch()
   const dogs = useSelector(state => state.dogs)
   const [actualPage, setActualPage] = useState(1)
@@ -32,7 +33,7 @@ const Home = () => {
           <h3 className='mr-6 text-3xl'>Create Dog</h3>
         </Link>
       </div>
-      <Filters setActualPage={setActualPage} />
+      <Filters setActualPage={setActualPage} setOrder={setOrder} />
       <Paginated
         dogs={dogs.length}
         dogsPerPage={dogsPerPage}

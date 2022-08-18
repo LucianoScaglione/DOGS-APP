@@ -2,21 +2,29 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { allTemperaments, filterByTemperaments, filterByOrder } from '../redux/actions'
 
-const Filters = ({ setActualPage }) => {
+const Filters = ({ setActualPage, setOrder }) => {
+
   const dispatch = useDispatch()
+
   const temperaments = useSelector(state => state.temperaments)
-  useEffect(() => {
-    dispatch(allTemperaments())
-  }, [])
+
   const handleChangeTemperaments = (e) => {
     e.preventDefault()
     dispatch(filterByTemperaments(e.target.value))
     setActualPage(1)
   }
+
   const handleChangeOrder = (e) => {
     e.preventDefault()
     dispatch(filterByOrder(e.target.value))
+    setActualPage(1)
+    setOrder(e.target.value)
   }
+
+  useEffect(() => {
+    dispatch(allTemperaments())
+  }, [dispatch])
+
   return (
     <div>
       <p>Temperaments:</p>
