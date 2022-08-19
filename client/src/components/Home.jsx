@@ -6,9 +6,13 @@ import Paginated from './Paginated';
 import github from '../images/github.png'
 import linkedin from '../images/linkedin.png'
 import Filters from './Filters';
-import dogHome from '../images/dogHome.jpg'
+import { isAuthenticated } from './AuthService'
+import UserContext from '../context/UserContext';
 
 const Home = () => {
+  const [currentUser, setCurrentUser] = useState(UserContext)
+  const user = isAuthenticated()
+  console.log("user home: ", user)
   const [order, setOrder] = useState('')
   const dispatch = useDispatch()
   const dogs = useSelector(state => state.dogs)
@@ -20,16 +24,26 @@ const Home = () => {
   const paginated = (page) => {
     setActualPage(page)
   }
+  const handleLogOut = () => {
+    localStorage.removeItem('user');
+    setCurrentUser({});
+    history.push('/');
+  };
   useEffect(() => {
     dispatch(showDogs())
   }, [dispatch])
   return (
-    <div className='bg-cyan-400'>
-      <div className='bg-blue-400 flex flex-row justify-between items-center'>
+    <div className='home bg-sky-600'>
+      <div className='bg-blue-900 flex flex-row justify-between items-center mt-3'>
         <div className='flex flex-row'>
           <a href="https://github.com/LucianoScaglione" target="_blank"><img className='h-12 m-1' src={github} alt='' /></a>
           <a href="https://www.linkedin.com/in/luciano-scaglione-8b5737234/" target="_blank"><img className='h-12 m-1' src={linkedin} alt='' /></a>
         </div>
+        <button onClick={() => handleLogOut()}>{user && <p>Logout</p>}</button>
+        <Link to='/login'>
+          <p>{!user && <p>Login</p>}</p>
+        </Link>
+        {/* <p>Bienvenido {user ? user.user.fullname : ''}</p> */}
         <Link to='/create'>
           <h3 className='mr-6 text-3xl'>Create Dog</h3>
         </Link>
