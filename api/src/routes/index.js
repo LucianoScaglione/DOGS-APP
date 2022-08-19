@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const router = Router();
-const { Dogs, Temperaments, Users } = require('../db')
+const { Dogs, Temperaments, Users, Comments } = require('../db')
 const axios = require('axios');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -145,6 +145,7 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body
+    console.log("le llega: ", req.body)
     const findUser = await Users.findOne({ where: { email: email } })
     if (findUser && (await bcrypt.compare(password, findUser.password))) {
       const token = jwt.sign({ user_id: findUser.id, email }, "secret", { expiresIn: "10h" });
@@ -161,6 +162,24 @@ router.post('/login', async (req, res) => {
   }
 })
 
+router.post('/comments', async (req, res) => {
+  try {
+    const { comment, userId, dogId } = req.body
+    const createComment = await Comments.create({
+      comment: comment,
+      userId: userId,
+      DogId: dogId
+    })
+    const container = await Comments.findAll({
+      where: {
+        DogId: dogId
+      }
+    })
+    res.send(container)
+  } catch (error) {
+    console.log(error)
+  }
+})
 
 module.exports = router;
 
