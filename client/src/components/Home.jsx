@@ -32,20 +32,24 @@ const Home = () => {
     dispatch(showDogs())
   }, [dispatch])
   return (
-    <div className='home bg-sky-600'>
-      <div className='bg-blue-900 flex flex-row justify-between items-center mt-3'>
+    <div className='home'>
+      <div className='bg-gray-900 flex flex-row justify-between items-center p-[15px]'>
         <div className='flex flex-row'>
-          <a href="https://github.com/LucianoScaglione" target="_blank"><img className='h-12 m-1' src={github} alt='' /></a>
+          <a href="https://github.com/LucianoScaglione" target="_blank"><img className='h-12 m-1 bg-white' src={github} alt='' /></a>
           <a href="https://www.linkedin.com/in/luciano-scaglione-8b5737234/" target="_blank"><img className='h-12 m-1' src={linkedin} alt='' /></a>
         </div>
-        <button onClick={() => handleLogOut()}>{user.user && <p>Logout</p>}</button>
-        <Link to='/login'>
-          <p>{!user.user && <p>Login</p>}</p>
-        </Link>
-        <p>{user.user && <p>Welcome {user.user.fullname}!</p>}</p>
-        <Link to={'/create'}>
-          <h3 className='mr-6 text-3xl'>Create Dog</h3>
-        </Link>
+        <div className='flex flex-row'>
+          <Link to={'/create'}>
+            <h3 className='text-3xl'>Create Dog</h3>
+          </Link>
+        </div>
+        <div className='flex flex-row'>
+          <Link to='/login'>
+            {!user.user && <p className='mr-[10px]'>Login</p>}
+          </Link>
+          {user.user && <p>Hello, {user.user.fullname}</p>}
+          {user.user && <button className='ml-[40px] mr-[10px]' onClick={() => handleLogOut()}>Logout</button>}
+        </div>
       </div>
       <div className='inline-flex'>
         <h3 className='mt-5 ml-4'>Filter by:</h3>
@@ -59,7 +63,7 @@ const Home = () => {
       <div className='bg-red-400 p-35'></div>
       {showDogsFrom && showDogsFrom.map(d => {
         return (
-          <div className='inline-block max-w-[300px] mx-4 my-10 bg-cyan-200 items-center justify-center rounded-lg hover:scale-105'>
+          <div className='inline-block max-w-[300px] mx-4 my-10 border-2 border-white items-center justify-center rounded-lg hover:scale-105'>
             <div key={d.id}>
               <Link to={`/detail/${d.id}`}>
                 <h1 className='m-6 font-black text-black' style={{
@@ -68,8 +72,8 @@ const Home = () => {
                   overflow: "hidden"
                 }}>{d.name}</h1>
                 <img className='h-60 w-80' src={d.image} />
-                <p className='m-2 text-black font-medium'>{d.breed_group ? d.breed_group : "Unknown breed"}</p>
-                <p className='m-2 text-black font-medium'>{d.origin ? d.origin : "Unknown origin"}</p>
+                <p className='m-2 text-white font-[600]'>{d.breed_group ? d.breed_group : "Unknown breed"}</p>
+                <p className='m-2 text-white font-[600]'>{d.origin ? d.origin : "Unknown origin"}</p>
               </Link>
             </div>
           </div>
