@@ -35,7 +35,6 @@ router.get('/dogs', async (req, res) => {
       const { name } = req.query
       if (name) {
         const searchDb = runDb.filter(n => n.name.toLowerCase().includes(name.toLowerCase()))
-        console.log("busqueda: ", searchDb)
         searchDb.length ? res.status(200).send(searchDb) : res.status(404).send("Not result")
       }
       else {
@@ -85,7 +84,6 @@ router.get('/dogs/:id', async (req, res) => {
         },
         include: Temperaments
       })
-      console.log("dogId: ", dogId)
       dogId ? res.status(200).send(dogId) : res.status(404).send("Not result")
     }
   } catch (error) {
@@ -96,7 +94,8 @@ router.get('/dogs/:id', async (req, res) => {
 router.post('/dogs', async (req, res) => { // revisar esta ruta
   try {
     console.log("le llega: ", req.body)
-    const { id, name, weight, bred_for, breed_group, life_span, origin, image, temperament } = req.body
+    const { name, weight, bred_for, breed_group, life_span, origin, image, temperament } = req.body
+    let id = Math.round(Math.random()*10000)
     let createDog = await Dogs.create({
       id,
       name,
@@ -164,18 +163,35 @@ router.post('/login', async (req, res) => {
 
 router.post('/comments', async (req, res) => {
   try {
-    const { comment, userId, dogId } = req.body
+    // const { comment, /*userId,*/ dogId } = req.body
+    let data = req.body
+    console.log("le llega: ", data)
+    let userId = 1
     const createComment = await Comments.create({
-      comment: comment,
+      comment: req.body.comment,
       userId: userId,
-      DogId: dogId
+      DogId: req.body.id
     })
     const container = await Comments.findAll({
       where: {
-        DogId: dogId
+        DogId: req.body.id
       }
     })
     res.send(container)
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+router.get('/comments/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+    const container = await Comments.findAll({
+      where: {
+        DogId: id 
+      }
+    })
+    container.length ? res.send(container) : res.status(404).send('Comments not existent')
   } catch (error) {
     console.log(error)
   }

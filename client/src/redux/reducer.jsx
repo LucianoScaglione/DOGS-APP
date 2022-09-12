@@ -1,10 +1,11 @@
-import { SHOW_DOGS, DETAIL_DOG, ALL_TEMPERAMENTS, FILTER_TEMPERAMENTS, FILTER_ORDER } from "./actions";
+import { SHOW_DOGS, DETAIL_DOG, ALL_TEMPERAMENTS, FILTER_TEMPERAMENTS, FILTER_ORDER, CLEAR_STATE, GET_COMMENTS} from "./actions";
 
 const initialState = {
     dogs: [],
     dogsCopy: [],
     detailDog: [],
-    temperaments: []
+    temperaments: [],
+    comments: []
 }
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -56,6 +57,19 @@ const reducer = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 dogs: container
+            }
+        }
+        case CLEAR_STATE: {
+            return {
+                ...state,
+                detailDog: [],
+                comments: []
+            }
+        }
+        case GET_COMMENTS: {
+            return {
+                ...state,
+                comments: payload
             }
         }
         default: return state;
