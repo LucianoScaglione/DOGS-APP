@@ -27,7 +27,6 @@ const Home = () => {
   const handleLogOut = () => {
     localStorage.removeItem('user');
     setCurrentUser({});
-    history.push('/');
   };
   useEffect(() => {
     dispatch(showDogs())
@@ -39,12 +38,12 @@ const Home = () => {
           <a href="https://github.com/LucianoScaglione" target="_blank"><img className='h-12 m-1' src={github} alt='' /></a>
           <a href="https://www.linkedin.com/in/luciano-scaglione-8b5737234/" target="_blank"><img className='h-12 m-1' src={linkedin} alt='' /></a>
         </div>
-        <button onClick={() => handleLogOut()}>{user && <p>Logout</p>}</button>
+        <button onClick={() => handleLogOut()}>{user.user && <p>Logout</p>}</button>
         <Link to='/login'>
-          <p>{!user && <p>Login</p>}</p>
+          <p>{!user.user && <p>Login</p>}</p>
         </Link>
-        {/* <p>Bienvenido {user ? user.user.fullname : ''}</p> */}
-        <Link to='/create'>
+        <p>{user.user && <p>Welcome {user.user.fullname}!</p>}</p>
+        <Link to={'/create'}>
           <h3 className='mr-6 text-3xl'>Create Dog</h3>
         </Link>
       </div>

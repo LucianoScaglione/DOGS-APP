@@ -5,6 +5,8 @@ export const DETAIL_DOG = "DETAIL_DOG"
 export const ALL_TEMPERAMENTS = "ALL_TEMPERAMENTS"
 export const FILTER_TEMPERAMENTS = "FILTER_TEMPERAMENTS"
 export const FILTER_ORDER = "FILTER_ORDER"
+export const CLEAR_STATE = "CLEAR_STATE"
+export const GET_COMMENTS = "GET_COMMENTS"
 
 export const showDogs = () => {
   return (dispatch) => {
@@ -49,6 +51,27 @@ export const filterByOrder = (payload) => {
   return {
     type: FILTER_ORDER,
     payload
+  }
+}
+
+export const clearState = () => {
+  return {
+    type: CLEAR_STATE
+  }
+}
+
+export const createComment = (payload) => {
+  return async () => {
+    let comment = await axios.post('http://localhost:3001/comments', payload)
+    return comment;
+  }
+}
+
+export const getComments = (payload) => {
+  return (dispatch) => {
+    return axios.get(`http://localhost:3001/comments/${payload}`)
+      .then(res => dispatch({ type: GET_COMMENTS, payload: res.data }))
+      .catch(err => console.log(err))
   }
 }
 

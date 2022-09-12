@@ -16,7 +16,7 @@ const Login = () => {
     e.preventDefault();
     try {
       await login(input.email, input.password);
-      history.push('/');
+      history.push('/home');
       setInput({ email: '', password: '' })
     } catch (error) {
       console.error('error', error);

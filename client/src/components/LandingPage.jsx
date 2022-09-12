@@ -4,10 +4,9 @@ import dogRunning from '../images/dogRunning.gif'
 const LandingPage = () => {
   return (
     <div className='landing'>
-      <div className='m-auto'>
-        <h1 className='text-center my-5 text-5xl text-emerald-500 '>Dogs App</h1>
-        <h3 className='text-center  text-5xl text-emerald-500'>Get in</h3>
+      <div className='flex flex-col justify-center items-center mt-[300px]'>
         <Link to='/home'><img src={dogRunning} alt='' /></Link>
+        <h3 className='text-black'>Get in</h3>
       </div>
     </div>
   )

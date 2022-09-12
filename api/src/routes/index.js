@@ -35,7 +35,6 @@ router.get('/dogs', async (req, res) => {
       const { name } = req.query
       if (name) {
         const searchDb = runDb.filter(n => n.name.toLowerCase().includes(name.toLowerCase()))
-        console.log("busqueda: ", searchDb)
         searchDb.length ? res.status(200).send(searchDb) : res.status(404).send("Not result")
       }
       else {
@@ -85,7 +84,6 @@ router.get('/dogs/:id', async (req, res) => {
         },
         include: Temperaments
       })
-      console.log("dogId: ", dogId)
       dogId ? res.status(200).send(dogId) : res.status(404).send("Not result")
     }
   } catch (error) {
@@ -119,6 +117,7 @@ router.post('/dogs', async (req, res) => { // revisar esta ruta
 router.post('/register', async (req, res) => {
   try {
     const { fullname, email, password, photo } = req.body
+    console.log("email: ", email)
     const findEmail = await Users.findOne({ where: { email: email } })
     if (!findEmail) {
       const encryptedPassword = await bcrypt.hash(password, 10);
@@ -164,18 +163,32 @@ router.post('/login', async (req, res) => {
 
 router.post('/comments', async (req, res) => {
   try {
-    const { comment, userId, dogId } = req.body
+    console.log("le llega: ", req.body)
     const createComment = await Comments.create({
-      comment: comment,
-      userId: userId,
-      DogId: dogId
+      comment: req.body.comment,
+      UserId: req.body.userId,
+      DogId: req.body.id
     })
     const container = await Comments.findAll({
       where: {
-        DogId: dogId
+        DogId: req.body.id
       }
     })
     res.send(container)
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+router.get('/comments/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+    const container = await Comments.findAll({
+      where: {
+        DogId: id
+      }, include: Users
+    })
+    container.length ? res.send(container) : res.status(404).send('Comments not existent')
   } catch (error) {
     console.log(error)
   }
