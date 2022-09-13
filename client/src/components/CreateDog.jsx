@@ -105,6 +105,13 @@ const CreateDog = () => {
       })
     }
   }
+  const handleDelete = (e) => {
+    e.preventDefault()
+    setInput({
+      ...input,
+      temperaments: input.temperaments.filter(t => t !== e.target.value)
+    })
+  }
   useEffect(() => {
     dispatch(showDogs())
     dispatch(allTemperaments())
@@ -121,25 +128,27 @@ const CreateDog = () => {
           <div className={style.wrap1}>
             <label>Name:</label>
             <input name='name' type='text' value={input.name} maxLength={20} onChange={handleChange} />
+            {error.name && (<p className={style.error}>*{error.name}</p>)}
             <label>Weight:</label>
             <input name='weight' type='number' value={input.weight} onChange={handleChange} />
+            {error.weight && (<p className={style.error}>*{error.weight}</p>)}
             <label>Bred for:</label>
             <input name='bred_for' type='text' value={input.bred_for} onChange={handleChange} />
+            {error.bred_for && (<p className={style.error}>*{error.bred_for}</p>)}
             <label>Breed group:</label>
             <input name='breed_group' type='text' value={input.breed_group} onChange={handleChange} />
+            {error.breed_group && (<p className={style.error}>*{error.breed_group}</p>)}
             <button className={style.send}>Create dog</button>
             <div className={style.containerError}>
-              {error.name && (<p className={style.error}>*{error.name}</p>)}
-              {error.weight && (<p className={style.error}>*{error.weight}</p>)}
-              {error.bred_for && (<p className={style.error}>*{error.bred_for}</p>)}
-              {error.breed_group && (<p className={style.error}>*{error.breed_group}</p>)}
             </div>
           </div>
           <div className={style.wrap2}>
             <label>Life span</label>
             <input name='life_span' type='text' value={input.life_span} onChange={handleChange} />
+            {error.life_span && (<p className={style.error}>*{error.life_span}</p>)}
             <label>Origin:</label>
             <input name='origin' type='text' value={input.origin} onChange={handleChange} />
+            {error.origin && (<p className={style.error}>*{error.origin}</p>)}
             <label>Image:</label>
             <input type="file" name="image" accept="image/*" onChange={handleChange} />
             <label>Temperament:</label>
@@ -159,16 +168,12 @@ const CreateDog = () => {
                   return (
                     <div className={style.containerTemperaments}>
                       <p className={style.name}>{t}</p>
-                      <p className={style.x} onClick={() => console.log('asd')}>X</p>
+                      <button value={t} className={style.x} onClick={(e) => handleDelete(e)}>X</button>
                     </div>
                   )
                 })
               }
             </ul>
-            <div className={style.containerError2}>
-              {error.life_span && (<p className={style.error}>*{error.life_span}</p>)}
-              {error.origin && (<p className={style.error}>*{error.origin}</p>)}
-            </div>
           </div>
         </form>
       </div>

@@ -169,7 +169,7 @@
   }
   
   .detailInfoUser {
-    background-color: #A78357;
+    background-color: white;
     border-radius: 5px;
     display: flex;
     flex-direction: wrap;
@@ -180,7 +180,7 @@
   }
   
   .detailInfoUser p {
-    color: white;
+    color: #A78357;;
     font-weight: 600;
     margin-right: 5px;
     max-width: 80%;
