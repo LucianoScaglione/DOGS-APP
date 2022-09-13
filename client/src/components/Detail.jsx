@@ -5,6 +5,7 @@ import { detailDogs, clearState, createComment, getComments } from '../redux/act
 import style from './styles/Detail.module.css'
 import gifDog from '../images/dogRunning.gif'
 import { isAuthenticated } from './AuthService'
+import Loading from './Loading'
 
 const Detail = (props) => {
   const userId = isAuthenticated()
@@ -28,6 +29,9 @@ const Detail = (props) => {
       dispatch(clearState())
     }
   }, [dispatch])
+  if (!detailDog.image) {
+    return <Loading />
+  }
   return (
     <div className={style.detail}>
       <div className={style.detailContainer}>

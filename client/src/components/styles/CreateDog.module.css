@@ -1,0 +1,125 @@
+.containerPrimary {
+    background-image: url('../../images/create.jpg');
+    height: 100vh;
+    background-size: 100%;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.container {
+    padding: 30px;
+    margin-left: 170px;
+}
+
+.container h1 {
+    font-size: 50px;
+    margin-bottom: 40px;
+    color: #FF8C00;
+    font-weight: 900;
+}
+
+.container input {
+    border: 1px solid #FF8C00;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 10px;
+    color: #FF8C00;
+    width: 400px;
+    font-weight: 700;
+    border-radius: 5px;
+}
+
+.container select {
+    border: 1px solid #FF8C00;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5px;
+    color: #FF8C00;
+    width: 400px;
+    height: 25px;
+    font-weight: 700;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.container label {
+    display: flex;
+    justify-content: start;
+    margin-top: 10px;
+    color: #FF8C00;
+    font-weight: 700;
+}
+
+.wrap1 {
+    float: left;
+    margin-right: 100px;
+}
+
+.wrap2 {
+    float: left;
+}
+
+.containerError {
+    /* background: red; */
+    margin-top: 20px;
+}
+
+.containerError2 {
+    /* background: red; */
+    margin-top: 82px;
+}
+
+.error {
+    color: red;
+    font-weight: 900;
+    margin-bottom: 10px;
+}
+
+.containerTemperaments {
+    display: inline-flex;
+    flex-direction: wrap;
+    padding-left: 10px;
+    background-color: rgba(255, 255, 255, .15);
+    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2);
+    backdrop-filter: blur(5px);
+}
+
+.containerTemperaments p {
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+.x {
+    cursor: pointer;
+    background-color: red;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.send {
+    margin-top: 30px;
+    border: 3px solid orange;
+    background-color: black;
+    color: orange;
+    padding: 5px;
+    border-radius: 5px;
+    width: 100px;
+}
+
+.name {
+    color: #FF8C00;
+}
+
+.back {
+    font-size: 20px;
+    color: #FF8C00;
+    font-weight: 300;
+    padding: 10px;
+}
+
+.back:hover {
+    color: white;
+}

@@ -1,0 +1,14 @@
+.container {
+    background-image: url('../../images/home.jpg');
+    height: 100vh;
+    background-size:100%;
+    background-position: center;
+    
+    position: absolute;
+    z-index: 10;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
