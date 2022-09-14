@@ -118,6 +118,7 @@ router.post('/dogs', async (req, res) => { // revisar esta ruta
 router.post('/register', async (req, res) => {
   try {
     const { fullname, email, password, photo } = req.body
+    console.log("email: ", email)
     const findEmail = await Users.findOne({ where: { email: email } })
     if (!findEmail) {
       const encryptedPassword = await bcrypt.hash(password, 10);
@@ -163,13 +164,10 @@ router.post('/login', async (req, res) => {
 
 router.post('/comments', async (req, res) => {
   try {
-    // const { comment, /*userId,*/ dogId } = req.body
-    let data = req.body
-    console.log("le llega: ", data)
-    let userId = 1
+    console.log("le llega: ", req.body)
     const createComment = await Comments.create({
       comment: req.body.comment,
-      userId: userId,
+      UserId: req.body.userId,
       DogId: req.body.id
     })
     const container = await Comments.findAll({
@@ -188,8 +186,8 @@ router.get('/comments/:id', async (req, res) => {
     const { id } = req.params
     const container = await Comments.findAll({
       where: {
-        DogId: id 
-      }
+        DogId: id
+      }, include: Users
     })
     container.length ? res.send(container) : res.status(404).send('Comments not existent')
   } catch (error) {

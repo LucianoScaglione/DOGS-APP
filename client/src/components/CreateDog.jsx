@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createDog, showDogs, allTemperaments } from '../redux/actions'
+import style from './styles/CreateDog.module.css'
 
 const CreateDog = () => {
   const dispatch = useDispatch()
@@ -54,17 +55,22 @@ const CreateDog = () => {
     dispatch(allTemperaments())
   }, [dispatch])
   return (
-    <div className='flex flex-col m-5'>
+    <div className={style.containerPrimary}>
+    <div className={style.container}>
       <form onSubmit={handleSubmit}>
         <h1>Create your dog!</h1>
+        <div className={style.wrap1}>
         <label>Name:</label>
-        <input name='name' type='text' value={input.name} onChange={handleChange} />
+        <input name='name' type='text' value={input.name} maxLength={20} onChange={handleChange} />
         <label>Weight:</label>
         <input name='weight' type='number' value={input.weight} onChange={handleChange} />
         <label>Bred for:</label>
         <input name='bred_for' type='text' value={input.bred_for} onChange={handleChange} />
         <label>Breed group:</label>
         <input name='breed_group' type='text' value={input.breed_group} onChange={handleChange} />
+          <button>Send</button>
+        </div>
+        <div className={style.wrap2}>
         <label>Life span</label>
         <input name='life_span' type='text' value={input.life_span} onChange={handleChange} />
         <label>Origin:</label>
@@ -92,9 +98,11 @@ const CreateDog = () => {
             })
           }
         </ul>
-        <button>Send</button>
-      </form>
+        </div>
+      </form> 
     </div>
+    </div>
+    
   )
 }
 

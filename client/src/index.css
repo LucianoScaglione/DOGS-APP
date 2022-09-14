@@ -23,15 +23,13 @@
 }
 
 .home {
-  background-image: url('images/dogHome.jpg');
-  background-color: white;
-  height: 100vh; 
-  background-position: center;
-  overflow-x: hidden; 
-  flex-direction: column;
-  background-size: contain;
+  background-image: url('images/home.jpg');
   background-attachment: fixed;
-  background-repeat: no-repeat;
+  height: 100vh;
+  background-size:100%;
+  background-position: center;
+  overflow: scroll;
+  overflow-x: hidden;
 }
 
 a {

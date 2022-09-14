@@ -30,6 +30,9 @@ Temperaments.belongsToMany(Dogs, { through: 'dogs_temperaments' })
 Dogs.hasMany(Comments);
 Comments.belongsTo(Dogs);
 
+Users.hasMany(Comments);
+Comments.belongsTo(Users);
+
 module.exports = {
   ...sequelize.models,
   conn: sequelize,

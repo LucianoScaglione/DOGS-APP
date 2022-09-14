@@ -61,7 +61,6 @@ export const clearState = () => {
 }
 
 export const createComment = (payload) => {
-  console.log("payload: ", payload)
   return async () => {
     let comment = await axios.post('http://localhost:3001/comments', payload)
     return comment;
@@ -71,7 +70,9 @@ export const createComment = (payload) => {
 export const getComments = (payload) => {
   return (dispatch) => {
     return axios.get(`http://localhost:3001/comments/${payload}`)
-    .then(res => dispatch({type: GET_COMMENTS, payload: res.data}))
-    .catch(err => console.log(err))
+      .then(res => dispatch({ type: GET_COMMENTS, payload: res.data }))
+      .catch(err => console.log(err))
   }
 }
+
+

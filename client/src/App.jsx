@@ -3,6 +3,7 @@ import CreateDog from './components/CreateDog'
 import Detail from './components/Detail'
 import Home from './components/Home'
 import LandingPage from './components/LandingPage'
+import Loading from './components/Loading'
 import Login from './components/Login'
 // import { UserProvider } from './context/UserContext'
 
