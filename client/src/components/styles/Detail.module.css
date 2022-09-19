@@ -141,14 +141,16 @@
   }
 
   .containerLower {
-    background-color: #A78357; 
+    background-color: rgba(255, 255, 255, .15);
+    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2);
+    backdrop-filter: blur(5px);
     margin: 30px;
     padding: 20px;
     border-radius: 15px;
   }
   
   .detailh3 {
-    color: white;
+    color: black;
     font-size: 20px;
     font-weight: 900;
     margin-bottom: 10px;
@@ -167,7 +169,7 @@
   }
   
   .detailInfoUser {
-    background-color: brown;
+    background-color: white;
     border-radius: 5px;
     display: flex;
     flex-direction: wrap;
@@ -178,14 +180,14 @@
   }
   
   .detailInfoUser p {
-    color: white;
+    color: #A78357;;
     font-weight: 600;
     margin-right: 5px;
     max-width: 80%;
   }
 
   .detailh4 {
-    color: white;
+    color: black;
     font-size: 20px;
     font-weight: 700;
     margin-bottom: 10px;
@@ -205,6 +207,10 @@
   .back {
     color: black;
     font-weight: 600;
+  }
+
+  .back:hover {
+    color: gray;
   }
 
   .close {
@@ -236,7 +242,12 @@
   .wrap button:hover {
     background: green;
     color: white;
-    border-radius: 10px;
+    border-radius: 5px;
     padding-left: 3px;
     padding-right: 3px;
+  }
+
+  .individual {
+    color: black;;
+    max-width: 80%;
   }

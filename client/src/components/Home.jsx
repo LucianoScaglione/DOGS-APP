@@ -9,6 +9,7 @@ import Filters from './Filters';
 import { isAuthenticated } from './AuthService'
 import UserContext from '../context/UserContext';
 import Loading from './Loading';
+import style from './styles/Home.module.css'
 
 const Home = () => {
   const [currentUser, setCurrentUser] = useState(UserContext)
@@ -68,10 +69,10 @@ const Home = () => {
       <div className='bg-red-400 p-35'></div>
       {showDogsFrom && showDogsFrom.map(d => {
         return (
-          <div className='inline-block max-w-[300px] mx-4 my-10 border-2 border-white items-center justify-center rounded-lg hover:scale-105'>
+          <div className={style.container}>
             <div key={d.id}>
               <Link to={`/detail/${d.id}`}>
-                <h1 className='m-6 font-black text-black' style={{
+                <h1 className='m-6 font-black text-white' style={{
                   whiteSpace: "nowrap",
                   textOverflow: "ellipsis",
                   overflow: "hidden"

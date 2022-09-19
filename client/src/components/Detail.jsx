@@ -60,14 +60,14 @@ const Detail = (props) => {
             <button onClick={handleSubmit}>Send</button>
           </div>
           <h4 className={style.detailh4}>Comments:</h4>
-          {comments ? comments.map(c => {
+          {comments.length ? comments.map(c => {
             return (
               <div className={style.detailInfoUser} value={c.DogId}>
                 <p>{c.User.fullname} says:</p>
                 <p>{c.comment}</p>
               </div>
             )
-          }) : <p>Without comments</p>}
+          }) : <p className={style.individual}>Without comments</p>}
         </div>
       }
     </div>
