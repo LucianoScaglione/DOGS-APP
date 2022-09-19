@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router'
 import { login } from './AuthService'
+import style from './styles/Login.module.css'
+import swal from 'sweetalert';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
 
@@ -19,19 +22,34 @@ const Login = () => {
       history.push('/home');
       setInput({ email: '', password: '' })
     } catch (error) {
-      console.error('error', error);
+      swal({
+        title: "Error",
+        text: "Email or password incorrect",
+        icon: "error",
+        button: "Ok",
+      });      
     }
   };
 
   return (
-    <div className='flex justify-center m-5'>
+    <div className={style.container}>
+      <div className={style.containerForm}>
       <form onSubmit={handleSubmit}>
+        <div className={style.children}>
         <label>Email:</label>
         <input name='email' type='email' value={input.email} onChange={handleChange} />
         <label>Password:</label>
         <input name='password' type='password' value={input.password} onChange={handleChange} />
-        <button>Send</button>
+        <button>Login</button>
+        </div>
       </form>
+        <div className={style.register}>
+        <p>¿You do not have an account? Create one!</p>
+        {/* <Link to='/register'> */}
+        <button>Register</button>
+        {/* </Link> */}
+        </div>
+        </div>
     </div>
   )
 }

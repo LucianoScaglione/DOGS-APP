@@ -5,6 +5,7 @@ import Home from './components/Home'
 import LandingPage from './components/LandingPage'
 import Loading from './components/Loading'
 import Login from './components/Login'
+import Register from './components/Register'
 // import { UserProvider } from './context/UserContext'
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
       <Route exact path='/detail/:id' component={Detail} />
       <Route exact path='/create' component={CreateDog} />
       <Route exact path='/login' component={Login} />
+      <Route exact path='/register' component={Register} />
       {/* </UserProvider> */}
     </>
   )
