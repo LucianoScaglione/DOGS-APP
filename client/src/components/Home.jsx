@@ -14,6 +14,7 @@ import style from './styles/Home.module.css'
 const Home = () => {
   const [currentUser, setCurrentUser] = useState(UserContext)
   const [loading, setLoading] = useState(false)
+  const [filter, setFIlter] = useState(false)
   const user = isAuthenticated()
   console.log("user home: ", user)
   const [order, setOrder] = useState('')
@@ -58,8 +59,8 @@ const Home = () => {
         </div>
       </div>
       <div className='inline-flex'>
-        <h3 className='mt-5 ml-4'>Filter by:</h3>
-        <Filters setActualPage={setActualPage} setOrder={setOrder} />
+        <h3 className='mt-5 ml-5 font-extrabold text-[20px] cursor-pointer hover:text-black' onClick={() => {!filter ? setFIlter(true) : setFIlter(false)}}>{!filter ? 'Filters' : 'Filters:'}</h3>
+        {filter && <Filters setActualPage={setActualPage} setOrder={setOrder} />}
       </div>
       <Paginated
         dogs={dogs.length}

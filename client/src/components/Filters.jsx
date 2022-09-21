@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { allTemperaments, filterByTemperaments, filterByOrder } from '../redux/actions'
+import style from './styles/Filter.module.css'
 
 const Filters = ({ setActualPage, setOrder }) => {
 
@@ -26,19 +27,27 @@ const Filters = ({ setActualPage, setOrder }) => {
   }, [dispatch])
 
   return (
-    <div className='inline-flex m-5'>
-      <p className='mx-2'>Temperaments:</p>
-      <select className='mr-[30px]' onChange={handleChangeTemperaments}>
+    <div className={style.container}>
+      <p>Temperaments:</p>
+      <select className={style.selectTemperament} onChange={handleChangeTemperaments}>
         <option value='all'>All</option>
         {
-          temperaments.length && temperaments.map(t => {
+          temperaments.length && temperaments.sort((a, b) => { 
+          if (a.name < b.name ) {
+            return -1;
+          }
+          if (a.name > b.name) {
+            return 1;
+          }
+          return 0;
+        }).map(t => {
             return (
               <option value={t.name}>{t.name}</option>
             )
           })
         }
       </select>
-      <p className='mx-2'>Order: </p>
+      <p>Order: </p>
       <select onChange={handleChangeOrder}>
         <option hidden>Default</option>
         <option value='az'>A-Z</option>

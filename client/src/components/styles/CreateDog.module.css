@@ -1,9 +1,19 @@
 .containerPrimary {
+    background-image: url('../../images/dogLanding.jpg');
+    height: 100vh;
+    background-color: white;
+    background-position: center;
+    overflow: scroll;
+    overflow-x: hidden; 
+    background-size: contain;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    /* 
     background-image: url('../../images/create.jpg');
     height: 100vh;
     background-size: 100%;
     overflow: scroll;
-    overflow-x: hidden;
+    overflow-x: hidden; */
 }
 
 .container {
@@ -120,5 +130,5 @@
 }
 
 .back:hover {
-    color: white;
+    color: gray;
 }

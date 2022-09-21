@@ -1,35 +1,41 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import style from './styles/Login.module.css'
+import { userRegister } from '../redux/actions'
+// import { useHistory } from 'react-router-dom'
 
 const Register = () => {
 
-  const [input, setInput] = useState({ fullname: '', email: '', password: '', photo: '' })
+  const [input, setInput] = useState({ fullname: '', email: '', password: '' })
   // const history = useHistory()
+  const dispatch = useDispatch()
 
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value })
   }
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     await login(input.email, input.password);
-  //     history.push('/home');
-  //     setInput({ email: '', password: '' })
-  //   } catch (error) {
-  //     swal({
-  //       title: "Error",
-  //       text: "Email or password incorrect",
-  //       icon: "error",
-  //       button: "Ok",
-  //     });      
-  //   }
-  // };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      dispatch(userRegister(input))
+      // history.push('/login');
+      // setInput({ fullname: '', email: '', password: '' })
+      // swal ("Registration completed successfully!" , "Thank you very much for registering on my page, I will send you to the login so that you can log in to your account!" , "success");
+    } catch (error) {
+      swal({
+        title: "Error",
+        text: "There is already a registered email",
+        icon: "error",
+        button: "Ok",
+      });      
+    }
+  };
   
   return (
     <div className={style.container}>
       <div className={style.containerForm}>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className={style.children}>
         <label>Full name</label>
         <input name='fullname' type='text' value={input.fullname} onChange={handleChange} />
