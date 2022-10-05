@@ -5,7 +5,6 @@ import style from './styles/CreateDog.module.css'
 import style2 from './styles/Home.module.css'
 import { Link } from 'react-router-dom'
 import swal from 'sweetalert';
-import search from '../images/search.jpg'
 
 const validations = (input) => {
   const errores = {}
@@ -51,10 +50,6 @@ const CreateDog = () => {
   const temperaments = useSelector(state => state.temperaments)
   const dispatch = useDispatch()
 
-
-
-
-
   const handleChangeImage = (e) => {
     let indexImg;
     if (images.length) {
@@ -85,17 +80,10 @@ const CreateDog = () => {
     return arrayImages;
   }
 
-
-
-
-
-
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value })
     setError(validations({ ...input, [e.target.name]: e.target.value }))
   }
-
-
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -136,8 +124,6 @@ const CreateDog = () => {
     }
   }
 
-
-
   const selectTemperament = (e) => {
     e.preventDefault()
     let container = [...input.temperaments]
@@ -153,8 +139,6 @@ const CreateDog = () => {
     }
   }
 
-
-
   const handleDelete = (e) => {
     e.preventDefault()
     setInput({
@@ -163,14 +147,10 @@ const CreateDog = () => {
     })
   }
 
-
-
   useEffect(() => {
     dispatch(showDogs())
     dispatch(allTemperaments())
   }, [dispatch])
-
-
 
   return (
     <div className={style.containerPrimary}>
@@ -185,7 +165,7 @@ const CreateDog = () => {
             <input name='name' type='text' value={input.name} maxLength={20} onChange={handleChange} />
             {error.name && (<p className={style.error}>*{error.name}</p>)}
             <label>Weight:</label>
-            <input name='weight' type='number' value={input.weight} onChange={handleChange} />
+            <input name='weight' type='number' value={input.weight} onChange={handleChange} disabled={!input.name || error.name ? true : false} />
             {error.weight && (<p className={style.error}>*{error.weight}</p>)}
             <label>Bred for:</label>
             <input name='bred_for' type='text' value={input.bred_for} onChange={handleChange} />
@@ -197,11 +177,11 @@ const CreateDog = () => {
             </div>
           </div>
           <div className={style.wrap2}>
-            <label>Life span</label>
-            <input name='life_span' type='text' value={input.life_span} onChange={handleChange} />
+            <label>Life span:</label>
+            <input name='life_span' type='text' value={input.life_span} onChange={handleChange} disabled={!input.weight || error.weight || error.bred_for || error.breed_group ? true : false} />
             {error.life_span && (<p className={style.error}>*{error.life_span}</p>)}
             <label>Origin:</label>
-            <input name='origin' type='text' value={input.origin} onChange={handleChange} />
+            <input name='origin' type='text' value={input.origin} onChange={handleChange} disabled={!input.life_span ? true : false} />
             {error.origin && (<p className={style.error}>*{error.origin}</p>)}
 
 
@@ -233,6 +213,9 @@ const CreateDog = () => {
               }
             </ul>
           </div>
+          <div className={style.containerSend}>
+      <button>Create dog</button>
+      </div>
         </form>
       </div>
       {/* <div className={style2.container}>
@@ -250,7 +233,6 @@ const CreateDog = () => {
           <p className='m-2 text-white font-[600]'>{input.origin ? input.origin : 'wi'}</p>
           </div>
     </div> Agregar esta información en un modal para luego crear un botón que diga "mostrar progreso"*/}
-    <button className={style.send}>Create dog</button>
     </div>
     
     )

@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux'
 import style from './styles/Login.module.css'
 import { userRegister } from '../redux/actions'
 // import { useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+
 
 const Register = () => {
 
@@ -34,6 +36,9 @@ const Register = () => {
   
   return (
     <div className={style.container}>
+      <Link to='/home'>
+        <p className={style.back}>⬅Back</p>
+      </Link>
       <div className={style.containerForm}>
       <form onSubmit={handleSubmit}>
         <div className={style.children}>

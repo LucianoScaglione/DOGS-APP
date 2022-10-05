@@ -15,7 +15,7 @@
   height: 430px;
   width: 500px;
   margin-left: 450px;
-  margin-top: 80px;
+  margin-top: 50px;
   border-radius: 20px;
 }
 
@@ -67,4 +67,16 @@
 
 .register p {
   font-weight: 700;
+}
+
+.back {
+  font-family: 'Kanit', sans-serif;
+  font-size: 20px;
+  color: white;
+  font-weight: 300;
+  padding: 10px;
+}
+
+.back:hover {
+  color: gray;
 }

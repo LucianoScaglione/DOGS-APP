@@ -33,6 +33,9 @@ const Login = () => {
 
   return (
     <div className={style.container}>
+      <Link to='/home'>
+        <p className={style.back}>⬅Back</p>
+      </Link>
       <div className={style.containerForm}>
       <form onSubmit={handleSubmit}>
         <div className={style.children}>

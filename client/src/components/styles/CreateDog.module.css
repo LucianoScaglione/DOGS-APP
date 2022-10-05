@@ -8,17 +8,12 @@
     background-size: contain;
     background-attachment: fixed;
     background-repeat: no-repeat;
-    /* 
-    background-image: url('../../images/create.jpg');
-    height: 100vh;
-    background-size: 100%;
-    overflow: scroll;
-    overflow-x: hidden; */
 }
 
 .container {
     padding: 30px;
     margin-left: 170px;
+    display: flex;
 }
 
 .container h1 {
@@ -106,16 +101,6 @@
     padding-right: 2px;
 }
 
-.send {
-    font-family: 'Kanit', sans-serif;
-    margin-top: 30px;
-    border: 3px solid orange;
-    background-color: black;
-    color: orange;
-    padding: 5px;
-    border-radius: 5px;
-    width: 120px;
-}
 
 .name {
     color: #FF8C00;
@@ -131,4 +116,20 @@
 
 .back:hover {
     color: gray;
+}
+
+.containerSend {
+    display: line;
+    margin-left: 350px;
+}
+
+.containerSend button {
+    font-family: 'Kanit', sans-serif;
+    margin-top: 20px;
+    border: 3px solid orange;
+    background-color: black;
+    color: orange;
+    padding: 5px;
+    border-radius: 5px;
+    width: 200px;
 }

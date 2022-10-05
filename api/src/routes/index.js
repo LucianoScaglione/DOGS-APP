@@ -117,7 +117,7 @@ router.post('/dogs', async (req, res) => { // revisar esta ruta
 
 router.post('/register', async (req, res) => {
   try {
-    const { fullname, email, password, photo } = req.body
+    const { fullname, email, password } = req.body
     console.log("email: ", email)
     const findEmail = await Users.findOne({ where: { email: email } })
     if (!findEmail) {
@@ -126,7 +126,6 @@ router.post('/register', async (req, res) => {
         fullname,
         email: email.toLowerCase(),
         password: encryptedPassword,
-        photo
       })
       const token = jwt.sign({ user_id: user.id, email }, "secret", { expiresIn: "10h" });
       user.token = token;
