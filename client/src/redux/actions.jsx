@@ -78,7 +78,7 @@ export const getComments = (payload) => {
 export const userRegister = (payload) => {
   console.log(payload)
   return async () => {
-    let user = await axios.post('http://localhost:3001/register', payload)
+    let user = await axios.post('http://localhost:3001/auth/register', payload)
     return user
   }
 }

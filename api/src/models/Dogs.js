@@ -8,10 +8,12 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     name: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: false
     },
     weight: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: false
     },
     bred_for: {
       type: DataTypes.STRING
@@ -26,10 +28,15 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING
     },
     origin: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: false
     },
     image: {
       type: DataTypes.STRING
+    },
+    createdInDb: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     }
   }, { timestamps: false })
 }
