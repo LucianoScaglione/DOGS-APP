@@ -55,10 +55,12 @@ const Detail = (props) => {
       {seeMore &&
         <div className={style.containerLower}>
           <h3 className={style.detailh3}>We would like to know what you think of this breed!</h3>
-          <div className={style.wrap}>
-            <textarea className={style.detailTextArea} placeholder='Add your comment' maxLength={140} onChange={(e) => setComment(e.target.value)} />
-            <button onClick={handleSubmit}>Send</button>
-          </div>
+          {userId.user ?
+            <div className={style.wrap}>
+              <textarea className={style.detailTextArea} placeholder='Add your comment' maxLength={140} onChange={(e) => setComment(e.target.value)} />
+              <button onClick={handleSubmit}>Send</button>
+            </div> : <Link to='/login'><p className={style.pInd}>👉You need to be logged in to be able to leave a comment, please log in to your account here 👈</p></Link>
+          }
           <h4 className={style.detailh4}>Comments:</h4>
           {comments.length ? comments.map(c => {
             return (

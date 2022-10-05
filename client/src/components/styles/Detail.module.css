@@ -247,6 +247,17 @@
     padding-right: 3px;
   }
 
+  .pInd {
+    color: black;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: inline-flex;
+  }
+
+  .pInd:hover {
+    color: gray;
+  }
+
   .individual {
     color: black;;
     max-width: 80%;
