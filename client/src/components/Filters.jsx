@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { allTemperaments, filterByTemperaments, filterByOrder } from '../redux/actions'
+import { allTemperaments, filterByTemperaments, filterByOrder, filterByData } from '../redux/actions'
 import style from './styles/Filter.module.css'
 
 const Filters = ({ setActualPage, setOrder }) => {
@@ -22,6 +22,13 @@ const Filters = ({ setActualPage, setOrder }) => {
     setOrder(e.target.value)
   }
 
+  const handleChangeData = (e) => {
+    e.preventDefault()
+    dispatch(filterByData(e.target.value))
+    setActualPage(1)
+    setOrder(e.target.value)
+  }
+
   useEffect(() => {
     dispatch(allTemperaments())
   }, [dispatch])
@@ -32,15 +39,15 @@ const Filters = ({ setActualPage, setOrder }) => {
       <select className={style.selectTemperament} onChange={handleChangeTemperaments}>
         <option value='all'>All</option>
         {
-          temperaments.length && temperaments.sort((a, b) => { 
-          if (a.name < b.name ) {
-            return -1;
-          }
-          if (a.name > b.name) {
-            return 1;
-          }
-          return 0;
-        }).map(t => {
+          temperaments.length && temperaments.sort((a, b) => {
+            if (a.name < b.name) {
+              return -1;
+            }
+            if (a.name > b.name) {
+              return 1;
+            }
+            return 0;
+          }).map(t => {
             return (
               <option value={t.name}>{t.name}</option>
             )
@@ -48,10 +55,16 @@ const Filters = ({ setActualPage, setOrder }) => {
         }
       </select>
       <p>Order: </p>
-      <select onChange={handleChangeOrder}>
+      <select className={style.selectTemperament} onChange={handleChangeOrder}>
         <option hidden>Default</option>
         <option value='az'>A-Z</option>
         <option value='za'>Z-A</option>
+      </select>
+      <p>Data: </p>
+      <select onChange={handleChangeData}>
+        <option hidden>See from</option>
+        <option value='api'>API</option>
+        <option value='db'>DB</option>
       </select>
     </div>
   )
