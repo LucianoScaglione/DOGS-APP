@@ -48,9 +48,7 @@ const Login = () => {
       </form>
         <div className={style.register}>
         <p>¿You do not have an account? Create one!</p>
-        {/* <Link to='/register'> */}
-        <button>Register</button>
-        {/* </Link> */}
+        <button><Link to='/register'>Register</Link></button>
         </div>
         </div>
     </div>

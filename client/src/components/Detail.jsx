@@ -65,7 +65,7 @@ const Detail = (props) => {
           {comments.length ? comments.map(c => {
             return (
               <div className={style.detailInfoUser} value={c.DogId}>
-                <p>{c.User.fullname} says:</p>
+                <p>{c.User.fullname}:</p>
                 <p>{c.comment}</p>
               </div>
             )
